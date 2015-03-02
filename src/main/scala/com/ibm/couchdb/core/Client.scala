@@ -108,7 +108,8 @@ class Client(config: Config) {
   def getBinary(resource: String, expectedStatus: Status): Task[Array[Byte]] = {
     val request = Request(
       method = GET,
-      uri = url(resource))
+      uri = url(resource),
+      headers = baseHeaders)
     req(request, expectedStatus).as[ByteVector].map(_.toArray)
   }
 

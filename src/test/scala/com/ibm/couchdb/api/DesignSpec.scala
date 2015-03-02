@@ -38,7 +38,7 @@ class DesignSpec extends CouchDbSpecification {
       clear()
       awaitDocOk(design.create(fixDesign))
       val info = awaitRight(design.info(fixDesign.name))
-      info.name mustEqual fixDesign.name
+      Seq(fixDesign.name, "_design/" + fixDesign.name) must contain(info.name)
       info.view_index.language mustEqual "javascript"
       info.view_index.disk_size must beGreaterThan(0)
     }

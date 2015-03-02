@@ -68,7 +68,6 @@ class QueryViewSpec extends CouchDbSpecification {
 
     "Query a view and select by key" >> {
       val docs1 = awaitRight(namesView.key("Alice").query)
-      docs1.offset mustEqual 0
       docs1.total_rows mustEqual 3
       docs1.rows must haveLength(1)
       docs1.rows(0).key mustEqual "Alice"
@@ -92,7 +91,6 @@ class QueryViewSpec extends CouchDbSpecification {
 
     "Query a view with a set of keys" >> {
       val docs = awaitRight(namesView.query(Seq(fixAlice.name, fixBob.name)))
-      docs.offset mustEqual 0
       docs.total_rows mustEqual 3
       docs.rows must haveLength(2)
       docs.rows.map(_.key) mustEqual Seq(fixAlice.name, fixBob.name)
@@ -101,7 +99,6 @@ class QueryViewSpec extends CouchDbSpecification {
 
     "Query a view with a set of keys and include documents" >> {
       val docs = awaitRight(namesView.queryIncludeDocs[FixPerson](Seq(fixAlice.name, fixBob.name)))
-      docs.offset mustEqual 0
       docs.total_rows mustEqual 3
       docs.rows must haveLength(2)
       docs.rows.map(_.key) mustEqual Seq(fixAlice.name, fixBob.name)

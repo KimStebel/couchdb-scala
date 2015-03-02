@@ -37,7 +37,7 @@ trait CouchDbSpecification extends Specification with
                                    UpickleImplicits {
   sequential
 
-  val client = new Client(Config(SpecConfig.couchDbHost, SpecConfig.couchDbPort, https = false, None))
+  val client = new Client(Config(SpecConfig.couchDbHost, SpecConfig.couchDbPort, https = false, Some(SpecConfig.couchDbUsername -> SpecConfig.couchDbPassword)))
 
   def await[T](future: Task[T]): Throwable \/ T = future.attemptRun
 
@@ -75,6 +75,8 @@ trait CouchDbSpecification extends Specification with
 
   def beUuid: Matcher[String] = haveLength(32)
 
+  def beOptUuid = beNone or beSome[String](beUuid)
+  
   def beRev: Matcher[String] = (_: String).length must beGreaterThan(32)
 
   def checkDocOk(doc: Res.DocOk): MatchResult[Any] = {

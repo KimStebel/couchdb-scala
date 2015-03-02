@@ -16,7 +16,7 @@
 
 package com.ibm.couchdb.api
 
-import com.ibm.couchdb.Res
+import com.ibm.couchdb.{Or, Res}
 import com.ibm.couchdb.core.Client
 import org.http4s.Status
 
@@ -25,7 +25,10 @@ import scalaz.concurrent.Task
 class Databases(client: Client) {
 
   def get(name: String): Task[Res.DbInfo] = {
-    client.get[Res.DbInfo](s"/$name", Status.Ok)
+    client.get[Or[Res.CouchDbInfo,Res.CloudantDbInfo]](s"/$name", Status.Ok).map {
+      case Or(Some(c),_) => c
+      case Or(None, Some(c)) => c
+    }
   }
 
   def getAll: Task[Seq[String]] = {
