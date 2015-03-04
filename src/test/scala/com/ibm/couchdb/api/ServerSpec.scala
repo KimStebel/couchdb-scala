@@ -28,7 +28,7 @@ class ServerSpec extends CouchDbSpecification {
     "Get info about the DB instance" >> {
       val info = awaitRight(server.info)
       info.couchdb mustEqual "Welcome"
-      info.uuid must beOptUuid
+      Option(info.uuid) must beOptUuid
       info.version.length must beGreaterThanOrEqualTo(3)
     }
 

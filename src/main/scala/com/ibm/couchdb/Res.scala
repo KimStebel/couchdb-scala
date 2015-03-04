@@ -55,9 +55,9 @@ object Res {
   }
 
   case class ServerInfo(couchdb: String,
-                        uuid: Option[String] = None,
+                        uuid: String = null, //TODO
                         version: String,
-                        vendor: Option[ServerVendor] = None)
+                        vendor: ServerVendor = null) //TODO
 
   case class ServerVendor(version: String, name: String)
 

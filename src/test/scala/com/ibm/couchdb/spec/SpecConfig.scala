@@ -21,16 +21,9 @@ object SpecConfig {
   val couchDbHost      = System.getProperty("couchDbHost", "127.0.0.1")
   val couchDbPort      = System.getProperty("couchDbPort", "5984").toInt
   val couchDbHttpsPort = System.getProperty("couchDbHttpsPort", "6984").toInt
-  val couchDbUsername  = System.getProperty("couchDbUsername", "admin")
-  val couchDbPassword  = System.getProperty("couchDbPassword", "admin")
-  
-  val couchDbAdminHost      = System.getProperty("couchDbAdminHost", "127.0.0.1")
-  val couchDbAdminPort      = System.getProperty("couchDbAdminPort", "5984").toInt
-  val couchDbAdminHttpsPort = System.getProperty("couchDbAdminHttpsPort", "6984").toInt
-  val couchDbAdminUsername  = System.getProperty("couchDbAdminUsername", "admin")
-  val couchDbAdminPassword  = System.getProperty("couchDbAdminPassword", "admin")
+  val couchDbUsername  = System.getProperty("couchDbUsername", "")
+  val couchDbPassword  = System.getProperty("couchDbPassword", "")
    
-  
   private val log = org.log4s.getLogger
 
   log.info("----------------------")

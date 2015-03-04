@@ -18,7 +18,10 @@ package com.ibm.couchdb
 
 import sun.misc.BASE64Decoder
 
-case class Config(host: String, port: Int, https: Boolean, credentials: Option[(String, String)])
+class Config private (val host: String, val port: Int, val https: Boolean, val credentials: Option[(String, String)])
+object Config {
+  def apply(host: String, port: Int, https: Boolean, credentials: Option[(String, String)]) = new Config(host, port, https, credentials.filter(_._1 != ""))
+}
 
 case class CouchDoc[T](doc: T,
                        kind: String,
